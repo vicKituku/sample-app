@@ -1,5 +1,5 @@
 export function greet(name:string): string{
-    const trimmed  = name.trim();
+    const trimmed  = name;
 
     if (trimmed === "") return "Hello, stranger!";
 
