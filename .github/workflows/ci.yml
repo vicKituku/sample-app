@@ -35,9 +35,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           docker build \
-            -t ghcr.io/vicKituku/sample-app:${{ github.sha }} \
-            -t ghcr.io/vicKituku/sample-app:latest .
-          docker push --all-tags ghcr.io/vicKituku/sample-app
+            -t ghcr.io/vickituku/sample-app:${{ github.sha }} \
+            -t ghcr.io/vickituku/sample-app:latest .
+          docker push --all-tags ghcr.io/vickituku/sample-app
         
 
     
