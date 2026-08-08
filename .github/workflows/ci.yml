@@ -18,5 +18,25 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run build
+  docker:
+    needs: ci                                  # only runs if the ci job passed
+    if: github.event_name == 'push'            # merges to main only — not PRs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write                          # lets GITHUB_TOKEN push to GHCR
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          docker build \
+            -t ghcr.io/vicKituku/sample-app:${{ github.sha }} \
+            -t ghcr.io/vicKituku/sample-app:latest .
+          docker push --all-tags ghcr.io/vicKituku/sample-app
+        
 
     
